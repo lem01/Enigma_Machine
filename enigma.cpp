@@ -10,12 +10,43 @@
 
 using namespace std;
 
-
-class Plugboard {
+class Mapping {
 private:
 
 public:
   
 
+};
 
-}
+
+class Plugboard {
+private:
+  Mapping mapping;
+public:
+  
+
+};
+
+class Rotor {
+private:
+  Mapping mapping;
+public:
+  
+
+};
+
+class Reflector {
+private:
+  Mapping mapping;
+public:
+  
+
+};
+
+class Enigma {
+private:
+
+public:
+  
+
+};
