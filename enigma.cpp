@@ -32,14 +32,43 @@ Plugboard::Plugboard(const char *filename) {
   for (int i=0, i<26, i++) {
     mapping[i]=i;
   }
+
   ifstream configure;
   configure.open(filename);
-  configure >> number_a;
-  configure >> number_b;
+
+  if(!configure) {
+    cerr << "Error opening configuration file!\n";
+    return 11;
+  }
+
+  string string_a;
+  int number_a;
+  string string_b;
+  int number_b;
+
+  while (!configure.eof()) {
+    configure >> string_a;
+    if (!isnumeric(string_a))
+      return 4;
+
+    number_a = int(string_a) - 48;
+
+    if (number_a > 25) {
+      cerr << "Invalid index!\n";
+      return 3;
+    }
+   
+
+
+
+
+
+
+    configure >> number_b;
   if (number_a = number_b)
     return 5;
   
-
+  }
 }
 
 int Plugboard::encrypt(int letter) {
@@ -47,6 +76,19 @@ int Plugboard::encrypt(int letter) {
 }
 
 
+
+
+
+
+/*
+  number = int(string_a) - 48;
+
+  if (number_a > 25) {
+    cerr << "Invalid index!\n";
+    return 3;
+  }
+}
+*/
 
 
 
