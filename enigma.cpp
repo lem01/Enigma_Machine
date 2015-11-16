@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include "errors.h"
 
 using namespace std;
 
@@ -23,40 +24,25 @@ public:
 };
 
 Plugboard::Plugboard() {
-  for (int i=0, i<26, i++) {
+  for (int i=0; i<26; i++) {
     mapping[i]=i;
   }
 }
 
 Plugboard::Plugboard(const char *filename) {
-  for (int i=0, i<26, i++) {
+  for (int i=0; i<26; i++) {
     mapping[i]=i;
   }
 
-  ifstream configure;
-  configure.open(filename);
+  ifstream in_stream;
+  in_stream.open(filename);
 
-  if(!configure) {
-    cerr << "Error opening configuration file!\n";
-    return 11;
-  }
 
   string string_a;
   int number_a;
   string string_b;
   int number_b;
 
-  while (!configure.eof()) {
-    configure >> string_a;
-    if (!isnumeric(string_a))
-      return 4;
-
-    number_a = int(string_a) - 48;
-
-    if (number_a > 25) {
-      cerr << "Invalid index!\n";
-      return 3;
-    }
    
 
 
@@ -66,7 +52,7 @@ Plugboard::Plugboard(const char *filename) {
 
     configure >> number_b;
   if (number_a = number_b)
-    return 5;
+    return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
   
   }
 }
@@ -94,7 +80,7 @@ int Plugboard::encrypt(int letter) {
 
 class Rotor {
 private:
-  Mapping mapping;
+  int mapping[26];
 public:
   
 
@@ -102,7 +88,7 @@ public:
 
 class Reflector {
 private:
-  Mapping mapping;
+  int mapping[26];
 public:
   
 

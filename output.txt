@@ -1,0 +1,6 @@
+The number of argc is : 5
+The content of argv[0] is ./enigma
+The content of argv[1] is plugboards/IV.pb
+The content of argv[2] is reflectors/I.rf
+The content of argv[3] is rotors/II.rot
+The content of argv[4] is rotors/I.pos
