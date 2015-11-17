@@ -1,12 +1,14 @@
 CXX=g++ -Wall -g
+EXE=main.o enigma.o helper.o
 
-enigma: main.o helper.o
-	$(CXX) main.o helper.o -o enigma
+enigma: $(EXE)
+	$(CXX) $(EXE) -o enigma
 
 %.o: %.cpp helper.h
 	$(CXX) -c $<
 
-main.o: errors.h
+main.o: enigma.h errors.h
+enigma.o: enigma.h
 
 .PHONY: clean
 clean:
