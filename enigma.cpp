@@ -32,9 +32,7 @@ int Plugboard::configure(const char *filename) {
   int number_a = 0;
   int number_b = 0;
 
-  while (!in_stream.eof()) {
-    in_stream >> string;
-    cout << string;
+  while (in_stream >> string) {
     if (!is_numeric(string))
       return 4;
     if (!is_valid(string))
@@ -48,10 +46,9 @@ int Plugboard::configure(const char *filename) {
     if (this->mapping[number_a] != number_a)
       return 5;
 
-    if (in_stream.eof()) // Odd no. of numbers in the configuration file
+    if (!(in_stream >> string)) // Odd no. of numbers in the configuration file
       return 6;
 
-    in_stream >> string;
     if (!is_numeric(string))
       return 4;
     if (!is_valid(string))
@@ -95,10 +92,9 @@ int Reflector::configure(const char *filename) {
   int number_b = 0;
 
   for (int i=0; i<13; i++) {
-    if (in_stream.eof())
+    if (!(in_stream >> string))
       return 10;
  
-    in_stream >> string;
     if (!is_numeric(string))
       return 4;
     if (!is_valid(string))
@@ -107,10 +103,9 @@ int Reflector::configure(const char *filename) {
     if (this->mapping[number_a] != number_a)
       return 9;
 
-    if (in_stream.eof())
+    if (!(in_stream >> string))
       return 10;
 
-    in_stream >> string;
     if (!is_numeric(string))
       return 4;
     if (!is_valid(string))
@@ -128,7 +123,7 @@ int Reflector::configure(const char *filename) {
   }
 
   // The configuration file has more characters than required
-  if (!in_stream.eof())
+  if (in_stream >> string)
     return 10;
 
   return 0;
