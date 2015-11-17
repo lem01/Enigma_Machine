@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
 
   /* END OF REFLECTOR CONFIGURATION */
 
-  if (argc == 3) {
+  if (argc == 4) {
     cerr << "Insufficient number of parameters!" << endl;
     cerr << "In order to set up the Enigma machine, a configuration file each for the wiring map of the plugboard and of the reflector is needed at the minimum." << endl;
     cerr << "If you wish to configure at least one rotor, please include a configuration file for the wiring map of each rotor and a configuration file for their initial starting positions." << endl;
@@ -129,8 +129,34 @@ int main(int argc, char **argv) {
 
   /* ROTOR CONFIGURATION */
 
-  if (argc > 3) {
+  if (argc > 4) {
     cout << "Loading rotor configuration... ";
+    Rotor rotor[argc - 4];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //some tests
     cout << "Success!" << endl;
 
@@ -175,6 +201,9 @@ int main(int argc, char **argv) {
 
   
 
+
+
+  // if argc > 4, we pass on to the rotors
 
 
 

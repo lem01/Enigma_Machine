@@ -72,7 +72,7 @@ int Plugboard::encrypt(int letter) {
   return this->mapping[letter];
 }
 
-////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 Reflector::Reflector() {
   for (int i=0; i<26; i++) {
@@ -132,3 +132,17 @@ int Reflector::configure(const char *filename) {
 int Reflector::encrypt(int letter) {
   return this->mapping[letter];
 }
+
+//////////////////////////////////////////////////////////////////////////////
+
+Rotor::Rotor() {
+  for (int i=0; i<26; i++) {
+    this->mapping[i]=i;
+  }
+}
+
+int Rotor::configure(const char *filename) {
+  //configure mapping
+}
+
+int Rotor::set_position(const char *filename) {

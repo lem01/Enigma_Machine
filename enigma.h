@@ -22,7 +22,10 @@ public:
 class Rotor {
 private:
   int mapping[26];
+  int top_position;
+  int notch;
 public:
+  Rotor();
   
 
 };
