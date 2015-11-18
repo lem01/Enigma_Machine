@@ -22,3 +22,11 @@ bool is_valid(const string &string) {
   else
     return 1;
 }
+
+bool is_repeated(const int &number, const int &n, const int mapping[26]) {
+  for (int i=0; i<n; i++) {
+    if (mapping[i] == number)
+      return 1;
+  }
+  return 0;
+}

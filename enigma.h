@@ -23,11 +23,12 @@ class Rotor {
 private:
   int mapping[26];
   int top_position;
-  int notch;
+  int *notch_ptr;
+  int number_of_notch;
 public:
   Rotor();
-  
-
+  int configure(const char *filename);
+  int set_top_position(const char *filename);
 };
 
 

@@ -133,6 +133,32 @@ int main(int argc, char **argv) {
     cout << "Loading rotor configuration... ";
     Rotor rotor[argc - 4];
 
+    for (int i=0; i < (argc - 4); i++) {
+      check = rotor[i].configure(argv[2]);
+      if (check > 0) {
+	if (check == 3) {
+	  cerr << "Failed!" << endl;
+	  cerr << "Configuration file contains a number not between 0 and 25!" << endl;
+	  return INVALID_INDEX;
+	}
+	else if (check == 4) {
+	  cerr << "Failed!" << endl;
+	  cerr << "Configuration file contains a non-numeric character!" << endl;
+	  return NON_NUMERIC_CHARACTER;
+	}
+	else if (check == 7) {
+	  cerr << "Failed!" << endl;
+	  cerr << "Invalid rotor mapping!" << endl;
+	  cerr << "No two inputs may be mapped to the same output! For all inputs, each input must be mapped to some output! When listing the turnover notches positions, please list each position only once!" << endl;
+	  return INVALID_ROTOR_MAPPING;
+	}
+	else if (check == 11) {
+	  cerr << "Failed!" << endl;
+	  cerr << "Error opening configuration file!" << endl;
+	  return ERROR_OPENING_CONFIGURATION_FILE;
+	}
+      }
+    }
 
 
 
@@ -147,17 +173,6 @@ int main(int argc, char **argv) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-    //some tests
     cout << "Success!" << endl;
 
     if (argc - 4 == 1) {
