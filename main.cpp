@@ -7,8 +7,13 @@
 +--------------------------------------------------------------------------*/
 
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <cstdlib>
 #include "enigma.h"
+#include "plugboard.h"
+#include "reflector.h"
+#include "rotor.h"
 #include "helper.h"
 #include "errors.h"
 
@@ -21,8 +26,6 @@ int main(int argc, char **argv) {
   for (int i=0; i<argc; i++)
     cout << "The content of argv[" << i << "] is " << argv[i] << endl;
   cout << endl;
-
-  cout << "LOADING ENIGMA MACHINE..." << endl << endl;
 
   int check;
 
@@ -38,34 +41,33 @@ int main(int argc, char **argv) {
   Plugboard plugboard;
 
   check = plugboard.configure(argv[1]);
-  if (check > 0) {
-    if (check == 3) {
-      cerr << "Failed!" << endl;
-      cerr << "Configuration file contains a number not between 0 and 25!" << endl;
-      return INVALID_INDEX;
-    }
-    else if (check == 4) {
-      cerr << "Failed!" << endl;
-      cerr << "Configuration file contains a non-numeric character!" << endl;
-      return NON_NUMERIC_CHARACTER;
-    }
-    else if (check == 5) {
-      cerr << "Failed!" << endl;
-      cerr << "Impossible plugboard configuration!" << endl;
-      cerr << "A contact may not be connected to itself, or to more than one other contacts!" << endl;
-      return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
-    }
-    else if (check == 6) {
-      cerr << "Failed!" << endl;
-      cerr << "Incorrect number of plugboard parameters!" << endl;
-      cerr << "The configuration file must contain an even number of numbers!" << endl;
-      return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
-    }
-    else if (check == 11) {
-      cerr << "Failed!" << endl;
-      cerr << "Error opening configuration file!" << endl;
-      return ERROR_OPENING_CONFIGURATION_FILE;
-    }
+  switch (check) {
+  case 3:
+    cerr << "Failed!" << endl;
+    cerr << "Configuration file contains a number not between 0 and 25!" << endl;
+    return INVALID_INDEX;
+  case 4:
+    cerr << "Failed!" << endl;
+    cerr << "Configuration file contains a non-numeric character!" << endl;
+    return NON_NUMERIC_CHARACTER;
+  case 5:
+    cerr << "Failed!" << endl;
+    cerr << "Impossible plugboard configuration!" << endl;
+    cerr << "A contact may not be connected to itself, "
+	 << "or to more than one other contacts!" << endl;
+    return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
+  case 6:
+    cerr << "Failed!" << endl;
+    cerr << "Incorrect number of plugboard parameters!" << endl;
+    cerr << "The configuration file must contain "
+	 << "an even number of numbers!" << endl;
+    return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
+  case 11:
+    cerr << "Failed!" << endl;
+    cerr << "Error opening configuration file!" << endl;
+    return ERROR_OPENING_CONFIGURATION_FILE;
+  default:
+    break;
   }
 
   cout << "Success!" << endl;
@@ -99,7 +101,8 @@ int main(int argc, char **argv) {
     else if (check == 9) {
       cerr << "Failed!" << endl;
       cerr << "Impossible reflector configuration!" << endl;
-      cerr << "A contact may not be connected to itself, or to more than one other contacts!" << endl;
+      cerr << "A contact may not be connected to itself, "
+	   << "or to more than one other contacts!" << endl;
       return INVALID_REFLECTOR_MAPPING;
     }
     else if (check == 10) {
@@ -122,8 +125,12 @@ int main(int argc, char **argv) {
 
   if (argc == 4) {
     cerr << "Insufficient number of parameters!" << endl;
-    cerr << "In order to set up the Enigma machine, a configuration file each for the wiring map of the plugboard and of the reflector is needed at the minimum." << endl;
-    cerr << "If you wish to configure at least one rotor, please include a configuration file for the wiring map of each rotor and a configuration file for their initial starting positions." << endl;
+    cerr << "In order to set up the Enigma machine, a configuration file each "
+	 << "for the wiring map of the plugboard and of the reflector is "
+	 << "needed at the minimum." << endl;
+    cerr << "If you wish to configure at least one rotor, please include "
+	 << "a configuration file for the wiring map of each rotor and "
+	 << "a configuration file for their initial starting positions." << endl;
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
   }
 
@@ -134,7 +141,7 @@ int main(int argc, char **argv) {
     Rotor rotor[argc - 4];
 
     for (int i=0; i < (argc - 4); i++) {
-      check = rotor[i].configure(argv[2]);
+      check = rotor[i].configure(argv[i+2]);
       if (check > 0) {
 	if (check == 3) {
 	  cerr << "Failed!" << endl;
@@ -149,7 +156,10 @@ int main(int argc, char **argv) {
 	else if (check == 7) {
 	  cerr << "Failed!" << endl;
 	  cerr << "Invalid rotor mapping!" << endl;
-	  cerr << "No two inputs may be mapped to the same output! For all inputs, each input must be mapped to some output! When listing the turnover notches positions, please list each position only once!" << endl;
+	  cerr << "No two inputs may be mapped to the same output! "
+	       << "For all inputs, each input must be mapped to some output! "
+	       << "When listing the turnover notches positions, "
+	       << "please list each position only once!" << endl;
 	  return INVALID_ROTOR_MAPPING;
 	}
 	else if (check == 11) {
@@ -160,18 +170,40 @@ int main(int argc, char **argv) {
       }
     }
 
+    // Set rotor positions
 
+    {
+      ifstream in_stream;
+      in_stream.open(argv[argc - 1]);
 
+      if (!in_stream) {
+	cerr << "Failed!" << endl;
+	cerr << "Error opening configuration file!" << endl;
+	return ERROR_OPENING_CONFIGURATION_FILE;
+      }
 
+      string string;
 
-
-
-
-
-
-
-
-
+      for (int i=0; i < (argc - 4); i++) {
+	if (!(in_stream >> string)) {
+	  cerr << "Failed!" << endl;
+	  cerr << "No rotor starting position!" << endl;
+	  cerr << "Please specify the starting position for each rotor used!" << endl;
+	  return NO_ROTOR_STARTING_POSITION;
+	} 
+	if (!is_numeric(string)) {
+	  cerr << "Failed!" << endl;
+	  cerr << "Configuration file contains a non-numeric character!" << endl;
+	  return NON_NUMERIC_CHARACTER;
+	}
+	if (!is_valid(string)) {
+	  cerr << "Failed!" << endl;
+	  cerr << "Configuration file contains a number not between 0 and 25!" << endl;
+	  return INVALID_INDEX;
+	}
+	rotor[i].top_position = atoi(string.c_str());
+      }
+    }
 
     cout << "Success!" << endl;
 
@@ -214,14 +246,23 @@ int main(int argc, char **argv) {
     return INVALID_INPUT_CHARACTER;
   }
 
-  
+  int plaintext_index = plaintext - 65;
 
+  // COUT JUST FOR MYSELF
 
-
+  int ciphertext_index;
+  ciphertext_index = plugboard.encrypt(plaintext_index);
+  cout << ciphertext_index << endl;
+  ciphertext_index = reflector.encrypt(ciphertext_index);
+  cout << ciphertext_index << endl;
   // if argc > 4, we pass on to the rotors
+  ciphertext_index = plugboard.encrypt(ciphertext_index);
+  cout << ciphertext_index << endl;
 
+  char ciphertext = char(ciphertext_index) + 65;
 
-
+  cout << plaintext << " has been successfully encrypted to " 
+       << ciphertext << endl;
 
   return NO_ERROR;
 }
