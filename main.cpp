@@ -11,9 +11,6 @@
 #include <string>
 #include <cstdlib>
 #include "enigma.h"
-#include "plugboard.h"
-#include "reflector.h"
-#include "rotor.h"
 #include "helper.h"
 #include "errors.h"
 
@@ -172,37 +169,27 @@ int main(int argc, char **argv) {
 
     // Set rotor positions
 
-    {
-      ifstream in_stream;
-      in_stream.open(argv[argc - 1]);
-
-      if (!in_stream) {
+    check = set_rotor_position(argc - 4, rotor, argv[argc - 1]);
+    switch (check) {
+    case 3:
+      cerr << "Failed!" << endl;
+      cerr << "Configuration file contains a number not between 0 and 25!" << endl;
+      return INVALID_INDEX;
+    case 4:
+      cerr << "Failed!" << endl;
+      cerr << "Configuration file contains a non-numeric character!" << endl;
+      return NON_NUMERIC_CHARACTER;
+    case 8:
+      cerr << "Failed!" << endl;
+      cerr << "No rotor starting position!" << endl;
+      cerr << "Please specify the starting position for each rotor used!" << endl;
+      return NO_ROTOR_STARTING_POSITION;
+    case 11:
 	cerr << "Failed!" << endl;
 	cerr << "Error opening configuration file!" << endl;
 	return ERROR_OPENING_CONFIGURATION_FILE;
-      }
-
-      string string;
-
-      for (int i=0; i < (argc - 4); i++) {
-	if (!(in_stream >> string)) {
-	  cerr << "Failed!" << endl;
-	  cerr << "No rotor starting position!" << endl;
-	  cerr << "Please specify the starting position for each rotor used!" << endl;
-	  return NO_ROTOR_STARTING_POSITION;
-	} 
-	if (!is_numeric(string)) {
-	  cerr << "Failed!" << endl;
-	  cerr << "Configuration file contains a non-numeric character!" << endl;
-	  return NON_NUMERIC_CHARACTER;
-	}
-	if (!is_valid(string)) {
-	  cerr << "Failed!" << endl;
-	  cerr << "Configuration file contains a number not between 0 and 25!" << endl;
-	  return INVALID_INDEX;
-	}
-	rotor[i].top_position = atoi(string.c_str());
-      }
+    default:
+      break;
     }
 
     cout << "Success!" << endl;

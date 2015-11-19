@@ -1,6 +1,9 @@
 #ifndef ROTOR_H
 #define ROTOR_H
 
+#include "helper.h"
+using namespace std;
+
 class Rotor {
 private:
   int mapping[26];

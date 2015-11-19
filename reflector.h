@@ -1,6 +1,9 @@
 #ifndef REFLECTOR_H
 #define REFLECTOR_H
 
+#include "helper.h"
+using namespace std;
+
 class Reflector {
 private:
   int mapping[26];

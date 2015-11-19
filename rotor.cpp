@@ -3,8 +3,6 @@
 #include <string>
 #include <cstdlib>
 #include "rotor.h"
-#include "enigma.h"
-#include "helper.h"
 
 using namespace std;
 
