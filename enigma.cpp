@@ -6,12 +6,7 @@
 |  Date:         11 November 2015                                           |
 +--------------------------------------------------------------------------*/
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
 #include "enigma.h"
-
 using namespace std;
 
 int set_rotor_position(const int &no_of_rotors, Rotor *rotor, const char *filename) {

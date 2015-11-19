@@ -1,6 +1,10 @@
 #ifndef ENIGMA_H
 #define ENIGMA_H
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 #include "plugboard.h"
 #include "reflector.h"
 #include "rotor.h"
@@ -10,9 +14,13 @@ using namespace std;
 /*
 class Enigma {
 private:
-  Plugboard _plugboard;
+  Plugboard *_plugboard;
+  Reflector *_reflector;
+  Rotor *_rotor;
+  
 public:
   Enigma();
+  int configure(int ;
 };
 */
 

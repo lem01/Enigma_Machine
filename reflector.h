@@ -1,6 +1,10 @@
 #ifndef REFLECTOR_H
 #define REFLECTOR_H
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 #include "helper.h"
 using namespace std;
 

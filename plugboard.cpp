@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
 #include "plugboard.h"
-
 using namespace std;
 
 Plugboard::Plugboard() {

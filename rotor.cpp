@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
 #include "rotor.h"
-
 using namespace std;
 
 Rotor::Rotor() {
@@ -68,7 +63,6 @@ int Rotor::configure(const char *filename) {
 }
 
 int Rotor::encrypt(int &letter) {
-  this->rotate();
   return this->mapping[letter];
 
 }

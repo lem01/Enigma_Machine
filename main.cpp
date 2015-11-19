@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <typeinfo> // js for checking
 #include <string>
 #include <cstdlib>
 #include "enigma.h"
@@ -23,6 +24,9 @@ int main(int argc, char **argv) {
   for (int i=0; i<argc; i++)
     cout << "The content of argv[" << i << "] is " << argv[i] << endl;
   cout << endl;
+
+  cout << "The type of argc is " << typeid(argc) << endl;
+  cout << "The type of argv is " << typeid(argv) << endl;
 
   int check;
 

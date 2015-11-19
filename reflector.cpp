@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
 #include "reflector.h"
-
 using namespace std;
 
 Reflector::Reflector() {

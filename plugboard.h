@@ -1,6 +1,10 @@
 #ifndef PLUGBOARD_H
 #define PLUGBOARD_H
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 #include "helper.h"
 using namespace std;
 

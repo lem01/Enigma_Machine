@@ -1,6 +1,10 @@
 #ifndef ROTOR_H
 #define ROTOR_H
 
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
 #include "helper.h"
 using namespace std;
 
