@@ -3,7 +3,8 @@ using namespace std;
 
 Rotor::Rotor() {
   for (int i=0; i<26; i++) {
-    this->mapping[i]=i;
+    this->mapping[0][i]=i;
+    this->mapping[1][i]=i;
   }
   notch_ptr = NULL;
   number_of_notch = 0;
@@ -32,7 +33,7 @@ int Rotor::configure(const char *filename) {
 
     if ((i > 0) && is_repeated(number, i, this->mapping))
       return 7;
-    this->mapping[i] = number;
+    this->mapping[i][1] = number;
   }
 
   int *temp_notch;

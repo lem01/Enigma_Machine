@@ -10,12 +10,13 @@ using namespace std;
 
 class Rotor {
 private:
-  int mapping[26];
+  int mapping[2][26];
   int *notch_ptr;
   int number_of_notch;
 public:
   int top_position;
   Rotor();
+  ~Rotor();
   int configure(const char *filename);
   int encrypt(int &letter);
   void rotate();
