@@ -12,4 +12,7 @@ bool is_valid(const std::string &string);
    of the array MAPPING */
 bool is_repeated(const int &number, const int &n, const int mapping[26]);
 
+
+// may want function for is_numeric and is_valid
+
 #endif

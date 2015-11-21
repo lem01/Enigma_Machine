@@ -12,8 +12,8 @@ class Plugboard {
 private:
   int mapping[26];
 public:
-  Plugboard();
-  int configure(const char *filename);
+  int good; // Indicator of whether constructor was successful
+  Plugboard(const char *filename);
   int encrypt(int &letter);
 };
 

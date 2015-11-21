@@ -14,11 +14,13 @@ private:
   int *notch_ptr;
   int number_of_notch;
 public:
+  int good; // Indicator of whether constructor was successful
   int top_position;
-  Rotor();
+  Rotor(const char *filename);
   ~Rotor();
-  int configure(const char *filename);
-  int encrypt(int &letter);
+  friend int set_rotor_position(Rotor *rotor, int no_of_rotors, const char *filename);
+  int encrypt_rtl(int &letter); // Right to left
+  int encrypt_ltr(int &letter); // Left to right
   void rotate();
 };
 

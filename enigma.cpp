@@ -9,27 +9,89 @@
 #include "enigma.h"
 using namespace std;
 
-int set_rotor_position(const int &no_of_rotors, Rotor *rotor, const char *filename) {
-  ifstream in_stream;
-  in_stream.open(filename);
+Enigma::Enigma(int argc, char **argv) {
+  good = 0;
+  plugboard = NULL;
+  reflector = NULL;
+  *rotor = NULL;
+  // Initialised to default values before being configured with input from command line
 
-  if (!in_stream)
-    return 11;
+  if (argc == 1)
+    good = 1;
+  else {
 
-  string string;
+    cout << "Loading plugboard configuration... ";
+    plugboard = new Plugboard(argv[1]);
+    good = plugboard->good;
+ 
+    if (good == 0) {
+      cout << "Success!" << endl;
+      cout << "Plugboard configured using \"" << argv[1] << "\".\n\n";
 
-  for (int i=0; i < no_of_rotors; i++) {
-    if (!(in_stream >> string))
-      return 8;
-    if (!is_numeric(string))
-      return 4;
-    if (!is_valid(string))
-      return 3;
-    rotor[i].top_position = atoi(string.c_str());
+      if (argc == 2)
+	good = 1;
+      else {
+
+	cout << "Loading reflector configuration... ";
+	reflector = new Reflector(argv[2]);
+	good = reflector->good;
+
+	if (good == 0) {
+	  cout << "Success!" << endl;
+	  cout << "Reflector configured using \"" << argv[2] << "\".\n\n";
+
+	  if (argc == 4)
+	    good = 1;
+	  else if (argc > 4) {
+
+	    cout << "Loading rotor configuration... ";
+	    rotor = new Rotor*[argc - 4];
+	    for (int i=0; i < (argc - 4); i++)
+	      rotor[i] = NULL; // Initialise each pointer before configuring each rotor
+
+	    for (int i=0; ((i < (argc - 4)) && (good == 0)); i++) {
+	      rotor[i] = new Rotor(argv[i+3]);
+	      good = rotor[i]->good;
+
+	      if (good == 0) {
+		good = set_rotor_position(*rotor, argc - 4, argv[argc - 1]);
+
+		if (good == 0) {
+		  cout << "Success!" << endl;
+
+		  if (argc == 5) {
+		    cout << "One rotor configured using \"" << argv[3] << "\".\n";
+		    cout << "Its position is configured using \"" << argv[4] << "\".\n\n";
+		  }
+		  else if (argc == 6) {
+		    cout << "2 rotors configured using \"" << argv[3]
+			 << "\" and \"" << argv[4] << "\".\n";
+		    cout << "Their positions are configured using \"" << argv[5] << "\".\n\n";
+		  }
+		  else {
+		    cout << argc - 4 << " rotors configured using ";
+		    for (int i=3; i <= argc - 3; i++) {
+		      cout << "\"" << argv[i] << "\", ";
+		    }
+		    cout << "and \"" << argv[argc - 2] << "\".\n";
+		    cout << "Their positions are configured using \"" << argv[argc - 1] << "\".\n\n";
+		  }
+		}
+	      }
+	      else
+		delete rotor[i];
+	    }
+	    if (good != 0)
+	      delete [] rotor;
+	  }
+	  if (good == 0)
+	    cout << "Enigma has been successfully configured!\n\n";
+	}
+      }
+    }
   }
-
-  return 0;
 }
 
-
-// set rotor positions
+Enigma::~Enigma() {
+  delete [] rotor;
+}

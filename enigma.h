@@ -11,24 +11,15 @@
 #include "helper.h"
 using namespace std;
 
-/*
 class Enigma {
 private:
-  Plugboard *_plugboard;
-  Reflector *_reflector;
-  Rotor *_rotor;
-  
+  Plugboard *plugboard;
+  Reflector *reflector;
+  Rotor **rotor;
 public:
-  Enigma();
-  int configure(int ;
+  int good; //Indicator of whether constructor was successful
+  Enigma(int argc, char **argv);
+  ~Enigma();
 };
-*/
-
-/* Function to initialise the top position of each rotor */
-int set_rotor_position(const int &no_of_rotors, Rotor *rotor, const char *filename);
-
-
-
-
 
 #endif
