@@ -16,10 +16,12 @@ private:
   Plugboard *plugboard;
   Reflector *reflector;
   Rotor **rotor;
+  int no_of_rotor;
 public:
   int good; //Indicator of whether constructor was successful
   Enigma(int argc, char **argv);
-  ~Enigma();
+  //  ~Enigma();
+  int encrypt(int &letter);
 };
 
 #endif

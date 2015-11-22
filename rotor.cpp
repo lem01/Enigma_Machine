@@ -7,7 +7,7 @@ Rotor::Rotor(const char *filename) {
     mapping[0][i]=i;
     mapping[1][i]=i;
   }
-  notch_ptr = NULL;
+  notch = NULL;
   number_of_notch = 0;
   top_position = 0;
   // Initialised to default values before being configured with FILENAME
@@ -29,7 +29,7 @@ Rotor::Rotor(const char *filename) {
       else if (!is_valid(string))
 	good = 3;
       else {
-	number = atoi(string.c_str());
+	number = string_to_int(string);
 	if ((i > 0) && is_repeated(number, i, mapping[1]))
 	  good = 7;
 	else {
@@ -47,7 +47,7 @@ Rotor::Rotor(const char *filename) {
 	else if (!is_valid(string))
 	  good = 3;
 	else {
-	  number = atoi(string.c_str());
+	  number = string_to_int(string);
 	  if ((i > 0) && is_repeated(number, i, temp_notch))
 	    good = 7;
 	  else {
@@ -60,10 +60,10 @@ Rotor::Rotor(const char *filename) {
       if (good == 0) {
 	in_stream.close();
 
-	notch_ptr = new int[number_of_notch];
+	notch = new int[number_of_notch];
 
 	for(int i=0; i < number_of_notch; i++) {
-	  notch_ptr[i] = temp_notch[i];
+	  notch[i] = temp_notch[i];
 	}
 
 	delete [] temp_notch;
@@ -73,7 +73,7 @@ Rotor::Rotor(const char *filename) {
 }
 
 Rotor::~Rotor() {
-  delete [] notch_ptr;
+  delete [] notch;
 }
 
 int set_rotor_position(Rotor *rotor, int no_of_rotors, const char *filename) {
@@ -92,7 +92,7 @@ int set_rotor_position(Rotor *rotor, int no_of_rotors, const char *filename) {
       return 4;
     if (!is_valid(string))
       return 3;
-    rotor[i].top_position = atoi(string.c_str());
+    rotor[i].top_position = string_to_int(string);
   }
 
   return 0;
@@ -103,7 +103,11 @@ int Rotor::encrypt_rtl(int &letter) {
 }
 
 int Rotor::encrypt_ltr(int &letter) {
-  return mapping[0][letter];
+  for (int i=0; i<26; i++) {
+    if (mapping[1][i] == letter)
+      return mapping[0][i];
+  }
+  return letter;
 }
 
 void Rotor::rotate() {

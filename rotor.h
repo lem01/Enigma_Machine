@@ -11,10 +11,10 @@ using namespace std;
 class Rotor {
 private:
   int mapping[2][26];
-  int *notch_ptr;
-  int number_of_notch;
 public:
   int good; // Indicator of whether constructor was successful
+  int *notch;
+  int number_of_notch;
   int top_position;
   Rotor(const char *filename);
   ~Rotor();

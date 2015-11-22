@@ -108,24 +108,17 @@ int main(int argc, char **argv) {
   }
 
 
-  /*
+
   int plaintext_index = plaintext - 65;
 
   // COUT JUST FOR MYSELF
   
-  int ciphertext_index;
-  ciphertext_index = plugboard.encrypt(plaintext_index);
-  cout << ciphertext_index << endl;
-  ciphertext_index = reflector.encrypt(ciphertext_index);
-  cout << ciphertext_index << endl;
-  // if argc > 4, we pass on to the rotors
-  ciphertext_index = plugboard.encrypt(ciphertext_index);
-  cout << ciphertext_index << endl;
+  int ciphertext_index = enigma.encrypt(plaintext_index);
 
   char ciphertext = char(ciphertext_index) + 65;
 
   cout << plaintext << " has been successfully encrypted to " 
        << ciphertext << endl;
-  */
+
   return NO_ERROR;
 }

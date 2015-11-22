@@ -26,7 +26,7 @@ Reflector::Reflector(const char *filename) {
       else if (!is_valid(string))
 	good = 3;
       else {
-	number_a = atoi(string.c_str());
+	number_a = string_to_int(string);
 	/* If mapping[i] != i, then we have previously configured a reflector
 	   mapping from i to some other number, and now we are about to configure
 	   another reflector mapping from i to yet another number */
@@ -39,7 +39,7 @@ Reflector::Reflector(const char *filename) {
 	else if (!is_valid(string))
 	  good = 3;
 	else {
-	  number_b = atoi(string.c_str());
+	  number_b = string_to_int(string);
 	  if (mapping[number_b] != number_b)
 	    good = 9;
   	  else if (number_a == number_b)
@@ -50,8 +50,8 @@ Reflector::Reflector(const char *filename) {
 	    mapping[number_b] = number_a;
 
 	    // The configuration file has more characters than required
-	    if (in_stream >> string)
-	      good = 10;
+	    //	    if (!in_stream.eof())
+	      //	      good = 10;
 	  }
 	}
       }

@@ -1,9 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstdlib>
 #include "helper.h"
-
 using namespace std;
 
 bool is_numeric(const string &string) {
@@ -15,12 +10,18 @@ bool is_numeric(const string &string) {
 }
 
 bool is_valid(const string &string) {
-  int number = atoi(string.c_str());
-
+  int number = string_to_int(string);
   if (number > 25)
     return 0;
   else
     return 1;
+}
+
+int string_to_int(const string &string) {
+  int number;
+  stringstream convert(string);
+  convert >> number;
+  return number;
 }
 
 bool is_repeated(const int &number, const int &n, const int mapping[26]) {

@@ -24,7 +24,7 @@ Plugboard::Plugboard(const char *filename) {
       else if (!is_valid(string))
 	good = 3;
       else {
-	number_a = atoi(string.c_str());
+	number_a = string_to_int(string);
 	/* If mapping[i] != i, then we have previously configured a plug cable
 	   from i to some other number, and now we are about to configure another
 	   plug cable from i to yet another number */
@@ -37,7 +37,7 @@ Plugboard::Plugboard(const char *filename) {
 	else if (!is_valid(string))
 	  good = 3;
 	else {
-	  number_b = atoi(string.c_str());
+	  number_b = string_to_int(string);
 	  if (mapping[number_b] != number_b)
 	    good = 5;
 	  else if (number_a == number_b) // Setting a plug cable from a number to itself
