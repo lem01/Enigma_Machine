@@ -54,6 +54,6 @@ Plugboard::Plugboard(const char *filename) {
   in_stream.close();
 }
 
-int Plugboard::encrypt(int &letter) {
+int Plugboard::encrypt(const int &letter) {
   return mapping[letter];
 }

@@ -14,7 +14,7 @@ private:
 public:
   int good; // Indicator of whether constructor was successful
   Reflector(const char *filename);
-  int encrypt(int &letter);
+  int encrypt(const int &letter);
 };
 
 #endif

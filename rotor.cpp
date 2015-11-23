@@ -98,11 +98,11 @@ int set_rotor_position(Rotor *rotor, int no_of_rotors, const char *filename) {
   return 0;
 }
 
-int Rotor::encrypt_rtl(int &letter) {
+int Rotor::encrypt_rtl(const int &letter) {
   return mapping[1][letter];
 }
 
-int Rotor::encrypt_ltr(int &letter) {
+int Rotor::encrypt_ltr(const int &letter) {
   for (int i=0; i<26; i++) {
     if (mapping[1][i] == letter)
       return mapping[0][i];
@@ -111,7 +111,7 @@ int Rotor::encrypt_ltr(int &letter) {
 }
 
 void Rotor::rotate() {
-  top_position++;
+  top_position = (top_position + 1) % 26;
   int temp_map = mapping[0][0];
   for (int i=0; i<25; i++) {
     mapping[0][i] = (mapping[0][i+1] - 1) % 26;

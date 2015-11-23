@@ -60,6 +60,6 @@ Reflector::Reflector(const char *filename) {
   in_stream.close();
 }
 
-int Reflector::encrypt(int &letter) {
+int Reflector::encrypt(const int &letter) {
   return mapping[letter];
 }

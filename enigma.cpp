@@ -101,46 +101,56 @@ Enigma::~Enigma() {
   delete [] *rotor;
 }
 */
-int Enigma::encrypt(int &letter) {
-  int encoded_letter = 0;
-
-  encoded_letter = plugboard->encrypt(letter);
-  cout << endl << encoded_letter << endl;
+int Enigma::encrypt(const int &letter) {
   if (no_of_rotor > 0) {
-    rotor[no_of_rotor -1]->rotate();
-    for (int i = no_of_rotor - 1; i >= 0; i--) {
-      encoded_letter = rotor[i]->encrypt_rtl(encoded_letter);
-      cout << encoded_letter << endl;
-    }
-  }
-  encoded_letter = reflector->encrypt(encoded_letter);
-  cout << encoded_letter << endl;
-  if (no_of_rotor > 0) {
-    for (int i = 0; i <= no_of_rotor - 1; i++) {
-      encoded_letter = rotor[i]->encrypt_ltr(encoded_letter);
-      cout << encoded_letter << endl;
-      if (i>0) {
-	for (int j=0; j < (rotor[i]->number_of_notch); j++) {
-	  if (rotor[i]->top_position == rotor[i]->notch[j])
-	    rotor[i-1]->rotate();
-	}
+    rotor[no_of_rotor - 1]->rotate();
+    for (int i = no_of_rotor - 1; i>0; i--) {
+      for (int j=0; j < (rotor[i]->number_of_notch); j++) {
+	if (rotor[i]->top_position == rotor[i]->notch[j])
+	  rotor[i-1]->rotate();
       }
     }
   }
+
+  int encoded_letter = 0;
+  encoded_letter = plugboard->encrypt(letter);
+
+  if (no_of_rotor > 0) {
+    for (int i = no_of_rotor - 1; i >= 0; i--) {
+      encoded_letter = (encoded_letter + rotor[i]->top_position) % 26;
+      encoded_letter = rotor[i]->encrypt_rtl(encoded_letter);
+      encoded_letter = (encoded_letter - rotor[i]->top_position) % 26;
+    }
+  }
+  encoded_letter = reflector->encrypt(encoded_letter);
+
+  if (no_of_rotor > 0) {
+    for (int i = 0; i <= no_of_rotor - 1; i++) {
+      encoded_letter = (encoded_letter + rotor[i]->top_position) % 26;
+      encoded_letter = rotor[i]->encrypt_ltr(encoded_letter);
+      encoded_letter = (encoded_letter - rotor[i]->top_position) % 26;
+    }
+  }
   encoded_letter = plugboard->encrypt(encoded_letter);
-  cout << encoded_letter << endl;
+
   return encoded_letter;
 }
-/*
+
 bool Enigma::encrypt(const string &plaintext) {
   stringstream spell (plaintext);
   char letter;
-  spell >> ws >> letter;
-  if (letter < 65 || plaintext > 90)
-    return 0;
-
-
+  int letter_index;
+  while (spell >> letter) {
+    if (letter < 65 || letter > 90)
+      return 0;
+    letter_index = letter - 65;
+    letter_index = encrypt(letter_index);
+    letter = char(letter_index) + 65;
+    cout << letter;
+    spell >> ws;
+  }
+  return 1;
 }
-*/
+
 
   // need to check reflector file, eof
