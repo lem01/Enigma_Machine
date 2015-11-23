@@ -131,10 +131,16 @@ int Enigma::encrypt(int &letter) {
   cout << encoded_letter << endl;
   return encoded_letter;
 }
+/*
+bool Enigma::encrypt(const string &plaintext) {
+  stringstream spell (plaintext);
+  char letter;
+  spell >> ws >> letter;
+  if (letter < 65 || plaintext > 90)
+    return 0;
 
-int Enigma::encrypt(const string &string) {
 
 }
-
+*/
 
   // need to check reflector file, eof
