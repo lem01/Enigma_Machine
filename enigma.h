@@ -1,3 +1,11 @@
+/*--------------------------------------------------------------------------+
+|  HEADER FILE                                                              |
+|  File Name:    enigma.h                                                   |
+|  Student:      Desy Kristianti                                            |
+|  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
+|  Date:         23 November 2015                                           |
++--------------------------------------------------------------------------*/
+
 #ifndef ENIGMA_H
 #define ENIGMA_H
 
@@ -20,7 +28,7 @@ private:
 public:
   int good; //Indicator of whether constructor was successful
   Enigma(int argc, char **argv);
-  //  ~Enigma();
+  ~Enigma();
   int encrypt(const int &letter);
 };
 

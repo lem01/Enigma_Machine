@@ -1,3 +1,11 @@
+/*--------------------------------------------------------------------------+
+|  IMPLEMENTATION FILE                                                      |
+|  File Name:    plugboard.cpp                                              |
+|  Student:      Desy Kristianti                                            |
+|  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
+|  Date:         23 November 2015                                           |
++--------------------------------------------------------------------------*/
+
 #include "plugboard.h"
 using namespace std;
 

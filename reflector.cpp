@@ -1,3 +1,11 @@
+/*--------------------------------------------------------------------------+
+|  IMPLEMENTATION FILE                                                      |
+|  File Name:    reflector.cpp                                              |
+|  Student:      Desy Kristianti                                            |
+|  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
+|  Date:         23 November 2015                                           |
++--------------------------------------------------------------------------*/
+
 #include "reflector.h"
 using namespace std;
 

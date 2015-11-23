@@ -1,3 +1,11 @@
+/*--------------------------------------------------------------------------+
+|  IMPLEMENTATION FILE                                                      |
+|  File Name:    helper.cpp                                                 |
+|  Student:      Desy Kristianti                                            |
+|  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
+|  Date:         23 November 2015                                           |
++--------------------------------------------------------------------------*/
+
 #include "helper.h"
 using namespace std;
 
@@ -30,4 +38,8 @@ bool is_repeated(const int &number, const int &n, const int mapping[26]) {
       return 1;
   }
   return 0;
+}
+
+int mod(const int &number) {
+  return ((number + 26 + 26) % 26);
 }

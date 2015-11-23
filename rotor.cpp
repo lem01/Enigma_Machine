@@ -1,3 +1,11 @@
+/*--------------------------------------------------------------------------+
+|  IMPLEMENTATION FILE                                                      |
+|  File Name:    rotor.cpp                                                  |
+|  Student:      Desy Kristianti                                            |
+|  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
+|  Date:         23 November 2015                                           |
++--------------------------------------------------------------------------*/
+
 #include "rotor.h"
 using namespace std;
 
@@ -113,10 +121,5 @@ int Rotor::encrypt_ltr(const int &letter) {
 }
 
 void Rotor::rotate() {
-  top_position = (top_position + 1 + 26) % 26;
-  int temp_map = mapping[1][0];
-  for (int i=0; i<25; i++) {
-    mapping[1][i] = (mapping[1][i+1] - 1 + 26) % 26;
-  }
-  mapping[1][25] = (temp_map - 1 + 26) % 26;
+  top_position = mod(top_position + 1);
 }

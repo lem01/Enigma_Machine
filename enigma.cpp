@@ -3,7 +3,7 @@
 |  File Name:    enigma.cpp                                                 |
 |  Student:      Desy Kristianti                                            |
 |  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
-|  Date:         11 November 2015                                           |
+|  Date:         23 November 2015                                           |
 +--------------------------------------------------------------------------*/
 
 #include "enigma.h"
@@ -48,20 +48,16 @@ Enigma::Enigma(int argc, char **argv) {
 	    cout << "Loading rotor configuration... ";
 	    rotor = new Rotor*[argc - 4];
 	    no_of_rotor = argc - 4;
-	    /*
-	    for (int i=0; i < (argc - 4); i++)
-	      rotor[i] = NULL; // Initialise each pointer before configuring each rotor
-	    */
+
 	    for (int i=0; ((i < (argc - 4)) && (good == 0)); i++) {
 	      rotor[i] = new Rotor(argv[i+3]);
 	      good = rotor[i]->good;
-	      /*
+	      
 	      if (good != 0) {
 		for (int j=0; j<=i; j++)
 		  delete rotor[j];
-		delete [] *rotor;
-	      }
-	      */
+		delete [] rotor;
+	      } 
 	    }
 
 	    if (good == 0)
@@ -96,11 +92,15 @@ Enigma::Enigma(int argc, char **argv) {
     }
   }
 }
-/*
+
 Enigma::~Enigma() {
-  delete [] *rotor;
+  if (no_of_rotor != 0) {
+    for (int i=0; i < no_of_rotor; i++)
+      delete rotor[i];
+    delete [] rotor;
+  }
 }
-*/
+
 int Enigma::encrypt(const int &letter) {
   if (no_of_rotor > 0) {
     rotor[no_of_rotor - 1]->rotate();
@@ -117,18 +117,18 @@ int Enigma::encrypt(const int &letter) {
 
   if (no_of_rotor > 0) {
     for (int i = no_of_rotor - 1; i >= 0; i--) {
-      encoded_letter = (encoded_letter + rotor[i]->top_position + 26) % 26;
+      encoded_letter = mod(encoded_letter + rotor[i]->top_position);
       encoded_letter = rotor[i]->encrypt_rtl(encoded_letter);
-      encoded_letter = (encoded_letter - rotor[i]->top_position + 26) % 26;
+      encoded_letter = mod(encoded_letter - rotor[i]->top_position);
     }
   }
   encoded_letter = reflector->encrypt(encoded_letter);
 
   if (no_of_rotor > 0) {
     for (int i = 0; i <= no_of_rotor - 1; i++) {
-      encoded_letter = (encoded_letter + rotor[i]->top_position + 26) % 26;
+      encoded_letter = mod(encoded_letter + rotor[i]->top_position);
       encoded_letter = rotor[i]->encrypt_ltr(encoded_letter);
-      encoded_letter = (encoded_letter - rotor[i]->top_position + 26) % 26;
+      encoded_letter = mod(encoded_letter - rotor[i]->top_position);
     }
   }
   encoded_letter = plugboard->encrypt(encoded_letter);

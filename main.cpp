@@ -3,12 +3,11 @@
 |  Student:      Desy Kristianti                                            |
 |  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
 |  Description:  Enigma machine to encrypt and decrypt messages             |
-|  Date:         16 November 2015                                           |
+|  Date:         23 November 2015                                           |
 +--------------------------------------------------------------------------*/
 
 #include <iostream>
 #include <fstream>
-#include <typeinfo> // js for checking
 #include <string>
 #include <cstdlib>
 #include "enigma.h"
@@ -18,14 +17,6 @@
 using namespace std;
 
 int main(int argc, char **argv) {
-
-  /* Checking input from the command line
-  cout << "The number of argc is : " << argc << endl;
-  for (int i=0; i<argc; i++)
-    cout << "The content of argv[" << i << "] is " << argv[i] << endl;
-  cout << endl;
-  */
-
   Enigma enigma(argc, argv);
 
   switch(enigma.good) {
@@ -89,7 +80,6 @@ int main(int argc, char **argv) {
   default:
     break;
   }
-
 
   cout << "Welcome to the Enigma machine!" << endl
        << "This machine will encrypt your message." << endl << endl;

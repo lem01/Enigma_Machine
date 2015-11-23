@@ -1,3 +1,11 @@
+/*--------------------------------------------------------------------------+
+|  HEADER FILE                                                              |
+|  File Name:    helper.h                                                   |
+|  Student:      Desy Kristianti                                            |
+|  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
+|  Date:         23 November 2015                                           |
++--------------------------------------------------------------------------*/
+
 #ifndef HELPER_H
 #define HELPER_H
 
@@ -22,7 +30,7 @@ int string_to_int(const string &string);
    of the array MAPPING */
 bool is_repeated(const int &number, const int &n, const int mapping[26]);
 
-
-// may want function for is_numeric and is_valid
+/* Function to compute NUMBER mod 26 */
+int mod(const int &number);
 
 #endif

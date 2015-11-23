@@ -1,3 +1,11 @@
+/*--------------------------------------------------------------------------+
+|  HEADER FILE                                                              |
+|  File Name:    rotor.h                                                    |
+|  Student:      Desy Kristianti                                            |
+|  Coursework:   MSc C++ Programming - Assessed Exercise No. 2              |
+|  Date:         23 November 2015                                           |
++--------------------------------------------------------------------------*/
+
 #ifndef ROTOR_H
 #define ROTOR_H
 
