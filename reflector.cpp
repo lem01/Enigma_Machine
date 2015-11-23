@@ -50,8 +50,8 @@ Reflector::Reflector(const char *filename) {
 	    mapping[number_b] = number_a;
 
 	    // The configuration file has more characters than required
-	    //	    if (!in_stream.eof())
-	      //	      good = 10;
+	    //if (in_stream.eof())
+	    //  good = 10;
 	  }
 	}
       }

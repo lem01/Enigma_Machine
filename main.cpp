@@ -92,35 +92,30 @@ int main(int argc, char **argv) {
 
 
   cout << "Welcome to the Enigma machine!" << endl
-       << "This machine will encrypt your message a letter at a time." << endl;
+       << "This machine will encrypt your message." << endl << endl;
 
   char letter;
   int letter_index;
 
-  do {
-    cout << "Please input a character in uppercase to encrypt : ";
+  cout << "Please input a character in uppercase to encrypt : ";
 
-    cin >> ws;
+  cin >> ws;
 
-    cout << "The ciphertext is ";
+  cout << endl << "The ciphertext is ";
 
-    while (cin.good()) {
-      cin >> ws >> letter;
-      if (letter < 65 || letter > 90) {
-	cerr << endl << "Invalid input character!" << endl;
-	cerr << "The Enigma machine may only encrypt uppercase letters." << endl;
-	return INVALID_INPUT_CHARACTER;
-      }
-      letter_index = letter - 65;
-      letter_index = enigma.encrypt(letter_index);
-      letter = char(letter_index) + 65;
-      cout << letter;
+  while (!cin.eof()) {
+    cin >> ws >> letter;
+    if (letter < 65 || letter > 90) {
+      cerr << endl << "Invalid input character!" << endl;
+      cerr << "The Enigma machine may only encrypt uppercase letters." << endl;
+      return INVALID_INPUT_CHARACTER;
     }
-
-    cout << endl << endl;
+    letter_index = letter - 65;
+    letter_index = enigma.encrypt(letter_index);
+    letter = char(letter_index) + 65;
+    cout << letter;
   }
-  while (1 == 1);
-
+  cout << endl;
 
   return NO_ERROR;
 }
