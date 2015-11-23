@@ -56,10 +56,12 @@ Rotor::Rotor(const char *filename) {
 	  }
 	}
       }
+      in_stream.close();
+      
+      if (number_of_notch == 0)
+	good = 7;
 
       if (good == 0) {
-	in_stream.close();
-
 	notch = new int[number_of_notch];
 
 	for(int i=0; i < number_of_notch; i++) {
@@ -76,7 +78,7 @@ Rotor::~Rotor() {
   delete [] notch;
 }
 
-int set_rotor_position(Rotor *rotor, int no_of_rotors, const char *filename) {
+int set_rotor_position(Rotor **rotor, int no_of_rotors, const char *filename) {
   ifstream in_stream;
   in_stream.open(filename);
 
@@ -92,7 +94,7 @@ int set_rotor_position(Rotor *rotor, int no_of_rotors, const char *filename) {
       return 4;
     if (!is_valid(string))
       return 3;
-    rotor[i].top_position = string_to_int(string);
+    rotor[i]->top_position = string_to_int(string);
   }
 
   return 0;
@@ -111,10 +113,10 @@ int Rotor::encrypt_ltr(const int &letter) {
 }
 
 void Rotor::rotate() {
-  top_position = (top_position + 1) % 26;
-  int temp_map = mapping[0][0];
+  top_position = (top_position + 1 + 26) % 26;
+  int temp_map = mapping[1][0];
   for (int i=0; i<25; i++) {
-    mapping[0][i] = (mapping[0][i+1] - 1) % 26;
+    mapping[1][i] = (mapping[1][i+1] - 1 + 26) % 26;
   }
-  mapping[0][25] = (temp_map - 1) % 26;
+  mapping[1][25] = (temp_map - 1 + 26) % 26;
 }

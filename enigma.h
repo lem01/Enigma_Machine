@@ -22,7 +22,6 @@ public:
   Enigma(int argc, char **argv);
   //  ~Enigma();
   int encrypt(const int &letter);
-  bool encrypt(const string &plaintext);
 };
 
 #endif

@@ -65,7 +65,7 @@ Enigma::Enigma(int argc, char **argv) {
 	    }
 
 	    if (good == 0)
-	      good = set_rotor_position(*rotor, argc - 4, argv[argc - 1]);
+	      good = set_rotor_position(rotor, argc - 4, argv[argc - 1]);
 	    
 	    if (good == 0) {
 	      cout << "Success!" << endl;
@@ -117,40 +117,21 @@ int Enigma::encrypt(const int &letter) {
 
   if (no_of_rotor > 0) {
     for (int i = no_of_rotor - 1; i >= 0; i--) {
-      encoded_letter = (encoded_letter + rotor[i]->top_position) % 26;
+      encoded_letter = (encoded_letter + rotor[i]->top_position + 26) % 26;
       encoded_letter = rotor[i]->encrypt_rtl(encoded_letter);
-      encoded_letter = (encoded_letter - rotor[i]->top_position) % 26;
+      encoded_letter = (encoded_letter - rotor[i]->top_position + 26) % 26;
     }
   }
   encoded_letter = reflector->encrypt(encoded_letter);
 
   if (no_of_rotor > 0) {
     for (int i = 0; i <= no_of_rotor - 1; i++) {
-      encoded_letter = (encoded_letter + rotor[i]->top_position) % 26;
+      encoded_letter = (encoded_letter + rotor[i]->top_position + 26) % 26;
       encoded_letter = rotor[i]->encrypt_ltr(encoded_letter);
-      encoded_letter = (encoded_letter - rotor[i]->top_position) % 26;
+      encoded_letter = (encoded_letter - rotor[i]->top_position + 26) % 26;
     }
   }
   encoded_letter = plugboard->encrypt(encoded_letter);
 
   return encoded_letter;
 }
-
-bool Enigma::encrypt(const string &plaintext) {
-  stringstream spell (plaintext);
-  char letter;
-  int letter_index;
-  while (spell >> letter) {
-    if (letter < 65 || letter > 90)
-      return 0;
-    letter_index = letter - 65;
-    letter_index = encrypt(letter_index);
-    letter = char(letter_index) + 65;
-    cout << letter;
-    spell >> ws;
-  }
-  return 1;
-}
-
-
-  // need to check reflector file, eof
