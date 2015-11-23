@@ -10,6 +10,7 @@ Reflector::Reflector(const char *filename) {
 
   ifstream in_stream;
   in_stream.open(filename);
+  int count = 0;
 
   if (!in_stream)
     good = 11;
@@ -18,8 +19,9 @@ Reflector::Reflector(const char *filename) {
     int number_a = 0;
     int number_b = 0;
 
-    for (int i=0; (i<13) && (good == 0); i++) {
-      if (!(in_stream >> string)) // No more input
+    while ((good == 0) && (in_stream >> string)) {
+      count++;
+      if (count > 13) // Too many input
 	good = 10;
       else if (!is_numeric(string))
 	good = 4;
@@ -32,7 +34,7 @@ Reflector::Reflector(const char *filename) {
 	   another reflector mapping from i to yet another number */
 	if (mapping[number_a] != number_a)
 	  good = 9;
-	else if (!(in_stream >> string)) // No more input
+	else if ((count <= 13) && !(in_stream >> string)) // No more input
 	  good = 10;
 	else if (!is_numeric(string))
 	  good = 4;
@@ -48,14 +50,12 @@ Reflector::Reflector(const char *filename) {
 	    // All checks passed
 	    mapping[number_a] = number_b;
 	    mapping[number_b] = number_a;
-
-	    // The configuration file has more characters than required
-	    //if (in_stream.eof())
-	    //  good = 10;
 	  }
 	}
       }
     }
+    if ((count < 13)) // Not enough input
+      good = 10;
   }
   in_stream.close();
 }

@@ -39,27 +39,27 @@ int main(int argc, char **argv) {
 	 << "a configuration file for their initial starting positions." << endl;
     return INSUFFICIENT_NUMBER_OF_PARAMETERS;
   case 3:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Configuration file contains a number not between 0 and 25!" << endl;
     return INVALID_INDEX;
   case 4:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Configuration file contains a non-numeric character!" << endl;
     return NON_NUMERIC_CHARACTER;
   case 5:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Impossible plugboard configuration!" << endl;
     cerr << "A contact may not be connected to itself, "
 	 << "or to more than one other contacts!" << endl;
     return IMPOSSIBLE_PLUGBOARD_CONFIGURATION;
   case 6:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Incorrect number of plugboard parameters!" << endl;
     cerr << "The configuration file must contain "
 	 << "an even number of numbers!" << endl;
     return INCORRECT_NUMBER_OF_PLUGBOARD_PARAMETERS;
   case 7:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Invalid rotor mapping!" << endl;
     cerr << "No two inputs may be mapped to the same output! "
 	 << "For all inputs, each input must be mapped to some output! "
@@ -67,23 +67,23 @@ int main(int argc, char **argv) {
 	 << "please list each position only once!" << endl;
     return INVALID_ROTOR_MAPPING;
   case 8:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "No rotor starting position!" << endl;
     cerr << "Please specify the starting position for each rotor used!" << endl;
     return NO_ROTOR_STARTING_POSITION;
   case 9:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Impossible reflector configuration!" << endl;
     cerr << "A contact may not be connected to itself, "
 	 << "or to more than one other contacts!" << endl;
     return INVALID_REFLECTOR_MAPPING;
   case 10:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Incorrect number of reflector parameters!" << endl;
     cerr << "The configuration file must contain exactly 13 pairs of numbers!" << endl;
     return INCORRECT_NUMBER_OF_REFLECTOR_PARAMETERS;
   case 11:
-    cerr << "Failed!" << endl;
+    cout << "Failed!" << endl;
     cerr << "Error opening configuration file!" << endl;
     return ERROR_OPENING_CONFIGURATION_FILE;
   default:
@@ -97,14 +97,13 @@ int main(int argc, char **argv) {
   char letter;
   int letter_index;
 
-  cout << "Please input a character in uppercase to encrypt : ";
+  cout << "Please input the plaintext in uppercase to encrypt : ";
 
   cin >> ws;
 
   cout << endl << "The ciphertext is ";
 
-  while (!cin.eof()) {
-    cin >> ws >> letter;
+  while (cin >> ws >> letter) {
     if (letter < 65 || letter > 90) {
       cerr << endl << "Invalid input character!" << endl;
       cerr << "The Enigma machine may only encrypt uppercase letters." << endl;

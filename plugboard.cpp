@@ -10,6 +10,7 @@ Plugboard::Plugboard(const char *filename) {
 
   ifstream in_stream;
   in_stream.open(filename);
+  int count = 0;
 
   if (!in_stream)
     good = 11;
@@ -19,7 +20,10 @@ Plugboard::Plugboard(const char *filename) {
     int number_b = 0;
 
     while ((in_stream >> string) && (good == 0)) {
-      if (!is_numeric(string))
+      count++;
+      if (count > 13) // Too many input
+	good = 6;
+      else if (!is_numeric(string))
 	good = 4;
       else if (!is_valid(string))
 	good = 3;
