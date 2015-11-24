@@ -28,7 +28,7 @@ private:
 public:
   int good; //Indicator of whether constructor was successful
   Enigma(int argc, char **argv);
-  ~Enigma();
+  // ~Enigma();
   int encrypt(const int &letter);
 };
 

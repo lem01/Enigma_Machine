@@ -93,6 +93,7 @@ Enigma::Enigma(int argc, char **argv) {
   }
 }
 
+/*
 Enigma::~Enigma() {
   if (no_of_rotor != 0) {
     for (int i=0; i < no_of_rotor; i++)
@@ -100,6 +101,7 @@ Enigma::~Enigma() {
     delete [] rotor;
   }
 }
+*/
 
 int Enigma::encrypt(const int &letter) {
   if (no_of_rotor > 0) {
