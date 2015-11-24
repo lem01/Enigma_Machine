@@ -122,9 +122,11 @@ int Rotor::encrypt_ltr(const int &letter) {
 
 void Rotor::rotate() {
   top_position = mod(top_position + 1);
+  /*
   int temp_map = mapping[1][0];
   for (int i=0; i<25; i++) {
     mapping[1][i] = mod(mapping[1][i+1] - 1);
   }
   mapping[1][25] = mod(temp_map - 1);
+  */
 }
